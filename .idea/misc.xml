@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndriodStudioProjects/integrate1/app/src/main/res/layout/activity_login_fragment.xml" value="0.1125" />
+        <entry key="..\:/AndroidStudioProjects/integrate1/app/src/main/res/layout/activity_acc_and_tilt_monitor.xml" value="0.15208333333333332" />
+        <entry key="..\:/AndroidStudioProjects/integrate1/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/integrate1/app/src/main/res/layout/activity_my_project.xml" value="0.1983695652173913" />
+        <entry key="..\:/AndroidStudioProjects/integrate1/app/src/main/res/layout/activity_new_project.xml" value="0.1983695652173913" />
+        <entry key="..\:/AndroidStudioProjects/integrate1/app/src/main/res/layout/activity_new_task.xml" value="0.1983695652173913" />
+        <entry key="..\:/AndroidStudioProjects/integrate1/app/src/main/res/layout/activity_project_interface.xml" value="0.1983695652173913" />
       </map>
     </option>
   </component>
