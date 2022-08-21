@@ -17,18 +17,19 @@ public class FileUtils {
 
     // 将字符串写入到文本文件中
     public static void writeTxtToFile(String strcontent, String filePath, String fileName) {
+        //这里我（李欢）先给22和32行注释掉了，和之前的activity里创建文件夹的操作冲突
         //生成文件夹之后，再生成文件，不然会出错
-        makeFilePath(filePath, fileName);
+        //makeFilePath(filePath, fileName);
         System.out.println("begin_now");
-
-        String strFilePath = filePath + fileName;
+        //这里25行SharedPreferences传来的路径结尾没有”/“,所以要在路径和文件名之间加一个”/“
+        String strFilePath = filePath + "/"+fileName;
         // 每次写入时，都换行写
         String strContent = strcontent + "\r\n";
         try {
             File file = new File(strFilePath);
             if (!file.exists()) {
                 Log.d("TestFile", "Create the file:" + strFilePath);
-                file.getParentFile().mkdirs();
+                //file.getParentFile().mkdirs();
                 file.createNewFile();
             }
             RandomAccessFile raf = new RandomAccessFile(file, "rwd");

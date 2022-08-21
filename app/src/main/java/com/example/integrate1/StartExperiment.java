@@ -111,6 +111,7 @@ public class StartExperiment extends AppCompatActivity{
             updateShow(null);
         }
     };
+    private String pro_folder_dir;
 
 
     @Override
@@ -247,10 +248,10 @@ public class StartExperiment extends AppCompatActivity{
         //显示记录的传感器数据
         //读取指定目录的文件
     public void getFile(View view){
-        fileTextViewlinearacc.setText(FileUtils.getFileContent(new File("storage/emulated/0/Documents/"+"linearaccel.txt")));
-        fileTextViewang.setText(FileUtils.getFileContent(new File("storage/emulated/0/Documents/"+"gyro.txt")));
-        fileTextViewacc.setText(FileUtils.getFileContent(new File("storage/emulated/0/Documents/"+"accel.txt")));
-        fileTextViewrov.setText(FileUtils.getFileContent(new File("storage/emulated/0/Documents/"+"rov.txt")));
+        fileTextViewlinearacc.setText(FileUtils.getFileContent(new File(pro_folder_dir+"linearaccel.txt")));
+        fileTextViewang.setText(FileUtils.getFileContent(new File(pro_folder_dir+"gyro.txt")));
+        fileTextViewacc.setText(FileUtils.getFileContent(new File(pro_folder_dir+"accel.txt")));
+        fileTextViewrov.setText(FileUtils.getFileContent(new File(pro_folder_dir+"rov.txt")));
 
         Toast.makeText(StartExperiment.this, "已显示部分数据", Toast.LENGTH_SHORT).show();
 
@@ -289,8 +290,11 @@ public class StartExperiment extends AppCompatActivity{
                         angle[2] += event.values[2] * dT;
                         //将得到的数值记录到文件中
                         orientationView.setText("各轴倾角值 (rad)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
-                        FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], "storage/emulated/0/Documents/", "gyro.txt");
-                        fileView.setText("数据文件存储地址为：" + "storage/emulated/0/Documents/" + "linearaccel.txt" + "  " + "gyro.txt" + "  " + "accel.txt" + "  " + "rov.txt");
+                        //获得SharedPreferences中储存的项目文件夹路径字符串
+                        SharedPreferences sharedPreferences = getSharedPreferences("direction", MODE_PRIVATE);
+                        pro_folder_dir = sharedPreferences.getString("dir", "");
+                        FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "gyro.txt");
+                        fileView.setText("数据文件存储地址为：" + pro_folder_dir + "linearaccel.txt" + "  " + "gyro.txt" + "  " + "accel.txt" + "  " + "rov.txt");
 
                         //检测是否超过阈值
                         //如果超过阈值开始报警
@@ -314,7 +318,7 @@ public class StartExperiment extends AppCompatActivity{
                     angle[1] = event.values[1];
                     angle[2] = event.values[2];
                     linearaccelerometerView.setText("各轴线性加速度值 (m/s²)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
-                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], "storage/emulated/0/Documents/", "linearaccel.txt");
+                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "linearaccel.txt");
 
                     //检测是否超过阈值
                     //如果超过阈值开始报警
@@ -338,7 +342,7 @@ public class StartExperiment extends AppCompatActivity{
                     angle[1] = event.values[1];
                     angle[2] = event.values[2];
                     accelerometerView.setText("各轴加速度值 (m/s²)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
-                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], "storage/emulated/0/Documents/", "accel.txt");
+                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "accel.txt");
 
                     //检测是否超过阈值
                     //如果超过阈值开始报警
@@ -360,7 +364,7 @@ public class StartExperiment extends AppCompatActivity{
                     angle[1] = event.values[1];
                     angle[2] = event.values[2];
                     rotationvectorView.setText("各轴旋转向量值 (θ/2)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
-                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], "storage/emulated/0/Documents/", "rov.txt");
+                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "rov.txt");
 
                     //检测是否超过阈值
                     //如果超过阈值开始报警

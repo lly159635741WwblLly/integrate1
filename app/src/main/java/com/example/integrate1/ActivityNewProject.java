@@ -1,6 +1,7 @@
 package com.example.integrate1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -24,6 +25,9 @@ public class ActivityNewProject extends AppCompatActivity implements View.OnClic
     //每个项目文件夹下加一个txt记录项目页面输入的信息
     private final String mFilename = "pro_information.txt";
     private String[] project_information;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
+    private String dir_childPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,9 @@ public class ActivityNewProject extends AppCompatActivity implements View.OnClic
         project_intro = findViewById(R.id.pro_intro);
         project_time = findViewById(R.id.pro_time);
         project_location = findViewById(R.id.pro_location);
+        //用SharedPreferences储存项目文件夹路径
+        sharedPreferences = getSharedPreferences("direction", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
 
     }
@@ -57,6 +64,10 @@ public class ActivityNewProject extends AppCompatActivity implements View.OnClic
         project_information[3] = project_location.getText().toString();
         //调用下面声明的save方法
         save(project_information);
+        //把项目文件夹路径存进SharedPreferences
+        editor.putString("dir",dir_childPath);
+        editor.commit();
+        Log.i("data","项目文件夹路径："+dir_childPath);
         Intent intent = new Intent();
         //添加数据，用intent将输入的项目名传到下一个界面
         intent.putExtra("name",pro_folder_name);
@@ -77,10 +88,13 @@ public class ActivityNewProject extends AppCompatActivity implements View.OnClic
         if(!dir_parent.exists() ){
             dir_parent.mkdirs();
         }
+        //这里dir_child就是新建的项目文件储存路径
         File dir_child = new File(dir_parent,pro_folder_name);
         if (!dir_child.exists()) {
             dir_child.mkdirs();
         }
+        //把dir_child从路径变为字符串
+        dir_childPath = dir_child.getPath();
         File file = new File(dir_child,mFilename);
         if (!file.exists()){
             try {
