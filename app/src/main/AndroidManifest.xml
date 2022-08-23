@@ -44,6 +44,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Integrate1"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="124b0a63d994267c5dd70634de849b9d" />
+        <!--声明定位service-->
+        <service android:name="com.amap.api.location.APSService"></service>
         <activity
             android:name=".Login"
             android:exported="true">

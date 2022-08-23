@@ -29,13 +29,11 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/iv_map"
-        android:src="@drawable/map"
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="400dp"
+        android:layout_margin="10dp" />
 
     <Button
         android:id="@+id/button_my_pro"
