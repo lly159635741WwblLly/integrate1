@@ -29,6 +29,7 @@ class MainActivity1 : AppCompatActivity() {
 
         binding.btnTakePicture.setOnClickListener {
             startActivity(CameraActivity4::class.java)
+
         }
 
     }
