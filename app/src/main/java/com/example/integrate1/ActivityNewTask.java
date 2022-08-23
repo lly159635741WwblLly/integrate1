@@ -18,12 +18,25 @@ public class ActivityNewTask extends AppCompatActivity implements View.OnClickLi
 
     private void initUI() {
         findViewById(R.id.button_acc_tilt_task).setOnClickListener(this);
+        findViewById(R.id.button_pic_task).setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View v) {
         Intent intent = new Intent();
-        intent.setClass(getApplicationContext(),ActivityAccAndTiltMonitor.class);
+
+        switch (v.getId()){
+            case R.id.button_acc_tilt_task:
+                //跳转到加速度和倾角测量
+                intent.setClass(getApplicationContext(),ActivityAccAndTiltMonitor.class);
+                break;
+            case R.id.button_pic_task:
+                //跳转到图像采集
+                intent.setClass(getApplicationContext(),MainActivity1.class);
+                break;
+        }
         startActivity(intent);
     }
+
+
 }
