@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.integrate1">
+    package="com.example.integrate1" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -20,17 +20,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-
-    <!--摄像头权限-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!--具备摄像头-->
-    <uses-feature android:name="android.hardware.camera.any" />
-    <!--存储图像或者视频权限-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 摄像头权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 具备摄像头 -->
+    <uses-feature android:name="android.hardware.camera.any" /> <!-- 存储图像或者视频权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--录制音频权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 录制音频权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
 
@@ -43,10 +37,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Integrate1"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:requestLegacyExternalStorage="true">
+        <activity
+            android:name=".ActivityEditPicture"
+            android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +53,7 @@
         </activity>
         <activity android:name=".Signup" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".StartExperiment"/>
+        <activity android:name=".StartExperiment" />
         <activity android:name=".Settings" />
         <activity android:name=".DetectSensors" />
         <activity
@@ -78,11 +76,18 @@
             android:name=".ActivityAccAndTiltMonitor"
             android:exported="false"
             android:parentActivityName=".ActivityNewTask" />
-
-
-        <activity android:name=".MainActivity1"/>
+        <activity android:name=".MainActivity1" />
         <activity android:name=".CameraActivity4" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities=".provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

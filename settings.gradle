@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "integrate1"
 include ':app'
+include ':image_lib'
