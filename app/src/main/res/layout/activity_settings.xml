@@ -330,14 +330,15 @@
             android:layout_margin="10dp"
             android:padding="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:textColor="@color/black"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="陀螺仪传感器阈值（rad）" />
+                android:text="陀螺仪传感器阈值（°）"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

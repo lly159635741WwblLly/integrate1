@@ -21,7 +21,6 @@ import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MyLocationStyle;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity1_main);
 
+        //隐私设置
+        AMapLocationClient.updatePrivacyAgree(this,true);
+        AMapLocationClient.updatePrivacyShow(this,true,true);
 
         mapView = findViewById(R.id.map);//找到地图控件
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
@@ -79,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AMapLocationClient mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
         mLocationClient.setLocationListener(this);
-
-
         //初始化参数定位
         //定位参数
         AMapLocationClientOption mLocationClientOption = new AMapLocationClientOption();

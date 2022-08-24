@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 
 //文件工具类
-public class FileUtils {
+public class FileUtils_Record {
 
 
     // 将字符串写入到文本文件中

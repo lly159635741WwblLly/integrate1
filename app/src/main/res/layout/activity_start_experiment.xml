@@ -51,34 +51,9 @@
                 android:textStyle="bold"
                 tools:ignore="OnClick" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="getFile"
-                android:textSize="15sp"
-                android:text="已记录数据\nShow Data"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                tools:ignore="OnClick" />
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/fileView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:text="文件存储地址\nFile Path"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            tools:ignore="MissingConstraints" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -163,63 +138,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="已记录数据\nRecorded Data"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:ignore="MissingConstraints" />
-        <AutoCompleteTextView
-            android:id="@+id/fileTextViewlinearacc"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="线性加速度数据"
-            android:textSize="10sp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black" />
-        <AutoCompleteTextView
-            android:id="@+id/fileTextViewang"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="倾角数据"
-            android:textSize="10sp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black" />
-        <AutoCompleteTextView
-            android:id="@+id/fileTextViewacc"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="加速度数据"
-            android:textSize="10sp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black" />
-        <AutoCompleteTextView
-            android:id="@+id/fileTextViewrov"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="旋转向量数据"
-            android:textSize="10sp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black" />
+
 
     </LinearLayout>
     </ScrollView>

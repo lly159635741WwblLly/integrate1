@@ -130,13 +130,6 @@ public class StartExperiment extends AppCompatActivity{
         rotationvectorView = this.findViewById(R.id.rotationvectorView);
         //获取GPS数据实时显示框
         locationinfoView = findViewById(R.id.locationinfoView);
-        //获取文件保存位置显示框
-        fileView = this.findViewById(R.id.fileView);
-        //获取文件数据显示框
-        fileTextViewlinearacc = this.findViewById(R.id.fileTextViewlinearacc);
-        fileTextViewang = this.findViewById(R.id.fileTextViewang);
-        fileTextViewacc = this.findViewById(R.id.fileTextViewacc);
-        fileTextViewrov = this.findViewById(R.id.fileTextViewrov);
 
 
     }
@@ -245,18 +238,6 @@ public class StartExperiment extends AppCompatActivity{
 
 
 
-        //显示记录的传感器数据
-        //读取指定目录的文件
-    public void getFile(View view){
-        fileTextViewlinearacc.setText(FileUtils.getFileContent(new File(pro_folder_dir+"linearaccel.txt")));
-        fileTextViewang.setText(FileUtils.getFileContent(new File(pro_folder_dir+"gyro.txt")));
-        fileTextViewacc.setText(FileUtils.getFileContent(new File(pro_folder_dir+"accel.txt")));
-        fileTextViewrov.setText(FileUtils.getFileContent(new File(pro_folder_dir+"rov.txt")));
-
-        Toast.makeText(StartExperiment.this, "已显示部分数据", Toast.LENGTH_SHORT).show();
-
-    }
-
 
         //开始考虑怎么记录传感器数据
         private class MySensorEventListener implements SensorEventListener {
@@ -280,6 +261,7 @@ public class StartExperiment extends AppCompatActivity{
 
 
                 //得到陀螺仪的值
+                //得到陀螺仪的值
                 if (lastTime != 0) {
                     final float dT = (event.timestamp - lastTime) * nanosecondsPerSecond;//数值变化时间
 
@@ -289,22 +271,22 @@ public class StartExperiment extends AppCompatActivity{
                         angle[1] += event.values[1] * dT;
                         angle[2] += event.values[2] * dT;
                         //将得到的数值记录到文件中
-                        orientationView.setText("各轴倾角值 (rad)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
+                        orientationView.setText("各轴倾角值 (°)：\n" + angle[0]*180/Math.PI + "\n " + angle[1]*180/Math.PI + "\n " + angle[2]*180/Math.PI);
                         //获得SharedPreferences中储存的项目文件夹路径字符串
                         SharedPreferences sharedPreferences = getSharedPreferences("direction", MODE_PRIVATE);
                         pro_folder_dir = sharedPreferences.getString("dir", "");
-                        FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "gyro.txt");
+                        FileUtils_Record.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "gyro.txt");
                         fileView.setText("数据文件存储地址为：" + pro_folder_dir + "linearaccel.txt" + "  " + "gyro.txt" + "  " + "accel.txt" + "  " + "rov.txt");
 
                         //检测是否超过阈值
                         //如果超过阈值开始报警
-                        if(Math.abs(angle[0]) > myPreferencestgX.getFloat("ThresholdGX", 0.0f)){
+                        if(Math.abs(angle[0]*180/Math.PI) > myPreferencestgX.getFloat("ThresholdGX", 0.0f)){
                             Toast.makeText(StartExperiment.this, "X轴倾角超过阈值", Toast.LENGTH_SHORT).show();
                         }
-                        if(Math.abs(angle[1]) > myPreferencestgY.getFloat("ThresholdGY", 0.0f)){
+                        if(Math.abs(angle[1]*180/Math.PI) > myPreferencestgY.getFloat("ThresholdGY", 0.0f)){
                             Toast.makeText(StartExperiment.this, "Y轴倾角超过阈值", Toast.LENGTH_SHORT).show();
                         }
-                        if(Math.abs(angle[2]) > myPreferencestgZ.getFloat("ThresholdGZ", 0.0f)){
+                        if(Math.abs(angle[2]*180/Math.PI) > myPreferencestgZ.getFloat("ThresholdGZ", 0.0f)){
                             Toast.makeText(StartExperiment.this, "Z轴倾角超过阈值", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -318,7 +300,7 @@ public class StartExperiment extends AppCompatActivity{
                     angle[1] = event.values[1];
                     angle[2] = event.values[2];
                     linearaccelerometerView.setText("各轴线性加速度值 (m/s²)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
-                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "linearaccel.txt");
+                    FileUtils_Record.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "linearaccel.txt");
 
                     //检测是否超过阈值
                     //如果超过阈值开始报警
@@ -342,7 +324,7 @@ public class StartExperiment extends AppCompatActivity{
                     angle[1] = event.values[1];
                     angle[2] = event.values[2];
                     accelerometerView.setText("各轴加速度值 (m/s²)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
-                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "accel.txt");
+                    FileUtils_Record.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "accel.txt");
 
                     //检测是否超过阈值
                     //如果超过阈值开始报警
@@ -364,7 +346,7 @@ public class StartExperiment extends AppCompatActivity{
                     angle[1] = event.values[1];
                     angle[2] = event.values[2];
                     rotationvectorView.setText("各轴旋转向量值 (θ/2)：\n" + angle[0] + "\n " + angle[1] + "\n " + angle[2]);
-                    FileUtils.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "rov.txt");
+                    FileUtils_Record.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "rov.txt");
 
                     //检测是否超过阈值
                     //如果超过阈值开始报警

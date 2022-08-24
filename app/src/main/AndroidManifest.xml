@@ -56,6 +56,7 @@
         <activity android:name=".StartExperiment" />
         <activity android:name=".Settings" />
         <activity android:name=".DetectSensors" />
+        <activity android:name=".ShowResults" />
         <activity
             android:name=".ActivityMyProject"
             android:exported="false"
