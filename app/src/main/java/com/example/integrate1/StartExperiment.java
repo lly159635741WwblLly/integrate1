@@ -39,11 +39,6 @@ public class StartExperiment extends AppCompatActivity{
     private TextView accelerometerView;
     private TextView rotationvectorView;
     private TextView locationinfoView;
-    private TextView fileView;
-    private AutoCompleteTextView fileTextViewlinearacc;
-    private AutoCompleteTextView fileTextViewang;
-    private AutoCompleteTextView fileTextViewacc;
-    private AutoCompleteTextView fileTextViewrov;
     private LocationManager locationManager;
     private String locationmessage;
     private double longitude;
@@ -276,7 +271,7 @@ public class StartExperiment extends AppCompatActivity{
                         SharedPreferences sharedPreferences = getSharedPreferences("direction", MODE_PRIVATE);
                         pro_folder_dir = sharedPreferences.getString("dir", "");
                         FileUtils_Record.writeTxtToFile(timeNow + "   " + longitude + "   " + latitude + "   " + altitude + "   " + angle[0] + "   " + angle[1] + "   " + angle[2], pro_folder_dir, "gyro.txt");
-                        fileView.setText("数据文件存储地址为：" + pro_folder_dir + "linearaccel.txt" + "  " + "gyro.txt" + "  " + "accel.txt" + "  " + "rov.txt");
+
 
                         //检测是否超过阈值
                         //如果超过阈值开始报警
