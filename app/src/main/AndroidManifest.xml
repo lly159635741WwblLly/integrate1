@@ -26,7 +26,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 录制音频权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -39,15 +40,16 @@
         android:theme="@style/Theme.Integrate1"
         tools:targetApi="31"
         android:requestLegacyExternalStorage="true">
-        <activity
-            android:name=".ActivityEditPicture"
-            android:exported="false" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="124b0a63d994267c5dd70634de849b9d" />
+        <!--声明定位service-->
+        <service android:name="com.amap.api.location.APSService" />
         <activity
             android:name=".Login"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -56,7 +58,8 @@
         <activity android:name=".StartExperiment" />
         <activity android:name=".Settings" />
         <activity android:name=".DetectSensors" />
-        <activity android:name=".ShowResults" />
+        <activity android:name=".ShowResults_Sensor" />
+        <activity android:name=".ShowResults_Global" />
         <activity
             android:name=".ActivityMyProject"
             android:exported="false"
@@ -79,7 +82,9 @@
             android:parentActivityName=".ActivityNewTask" />
         <activity android:name=".MainActivity1" />
         <activity android:name=".CameraActivity4" />
-
+        <activity
+            android:name=".ActivityEditPicture"
+            android:exported="false" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities=".provider"

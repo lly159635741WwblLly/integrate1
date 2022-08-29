@@ -26,13 +26,23 @@ public class ActivityProjectInterface extends AppCompatActivity implements View.
         project_name_show.setText("项目名："+name);
         findViewById(R.id.button_create_new_task).setOnClickListener(this);
 
+
     }
 
 
     @Override
-    public void onClick(View view) {
-        Intent intent = new Intent();
-        intent.setClass(getApplicationContext(),ActivityNewTask.class);
-        startActivity(intent);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_create_new_task://文件上传
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), ActivityNewTask.class);
+                startActivity(intent);
+                break;
+            case R.id.button_data_file_list://文件上传
+                Intent intent2 = new Intent();
+                intent2.setClass(getApplicationContext(), ShowResults_Global.class);
+                startActivity(intent2);
+                break;
+        }
     }
 }

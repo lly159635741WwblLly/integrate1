@@ -10,6 +10,8 @@
         android:text="加速度和倾角采集"
         android:textSize="25dp"
         android:gravity="center"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

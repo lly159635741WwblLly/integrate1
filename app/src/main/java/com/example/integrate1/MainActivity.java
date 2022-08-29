@@ -2,7 +2,10 @@ package com.example.integrate1;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -41,6 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //隐私设置
         AMapLocationClient.updatePrivacyAgree(this,true);
         AMapLocationClient.updatePrivacyShow(this,true,true);
+
+        //获得访问所有文件的权限
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R ||
+                Environment.isExternalStorageManager()) {
+            Toast.makeText(this, "已获得访问所有文件的权限", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+            startActivity(intent);
+        }
+
 
         mapView = findViewById(R.id.map);//找到地图控件
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图

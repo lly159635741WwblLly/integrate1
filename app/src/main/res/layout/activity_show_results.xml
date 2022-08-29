@@ -7,15 +7,16 @@
 
     <LinearLayout
         android:id="@+id/topbar"
-        android:orientation="horizontal"
-        android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
         <TextView
             android:id="@+id/path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="路径:"/>
+            android:text="路径:" />
 
     </LinearLayout>
 

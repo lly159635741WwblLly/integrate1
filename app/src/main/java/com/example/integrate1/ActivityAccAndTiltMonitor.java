@@ -42,7 +42,7 @@ public class ActivityAccAndTiltMonitor extends AppCompatActivity implements View
             case R.id.button_result:
                 //跳转到第三个界面,仍需修改
                 Intent intent03 = new Intent();
-                intent03.setClass(getApplicationContext(), ShowResults.class);//指定字节码文件
+                intent03.setClass(getApplicationContext(), ShowResults_Sensor.class);//指定字节码文件
                 this.startActivity(intent03);
                 break;
         }

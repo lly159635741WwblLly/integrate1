@@ -57,7 +57,7 @@ public class Utils_Results {
                     // 获取文件夹目录结构
                    item.icon=R.drawable.folder;//图标
                     item.size="";//大小
-                        item.type = ShowResults.T_DIR;
+                        item.type = ShowResults_Sensor.T_DIR;
 
 
                 } else if(file.isFile()){// 文件
@@ -71,13 +71,13 @@ public class Utils_Results {
                     // 文件的大小
                     String size = getSize(file.length());
                     item.size=size;
-                    item.type = ShowResults.T_FILE;
+                    item.type = ShowResults_Sensor.T_FILE;
                     if (checkEndsInArray(ext, new String[]{"png","gif","jpg","bmp"})) {
-                        item.type = ShowResults.T_PIC;
+                        item.type = ShowResults_Sensor.T_PIC;
                     }
                     if (checkEndsInArray(ext, new String[]{"mp4","3gp","mpeg","mov","flv"})) {
                         // video
-                        item.type = ShowResults.T_VIDEO;
+                        item.type = ShowResults_Sensor.T_VIDEO;
                     }
 
 
@@ -129,7 +129,7 @@ public class Utils_Results {
                         // 获取文件夹目录结构
                         item.icon = R.drawable.folder;//图标
                         item.size = "";//大小
-                        item.type = ShowResults.T_DIR;
+                        item.type = ShowResults_Sensor.T_DIR;
                         item.name = file.getName();// 名称
 
                         item.path = file.getPath();// 路径
@@ -159,13 +159,13 @@ public class Utils_Results {
                         // 文件的大小
                         String size = getSize(file.length());
                         item.size = size;
-                        item.type = ShowResults.T_FILE;
+                        item.type = ShowResults_Sensor.T_FILE;
                         if (checkEndsInArray(ext, new String[]{"png","gif","jpg","bmp"})) {
-                            item.type = ShowResults.T_PIC;
+                            item.type = ShowResults_Sensor.T_PIC;
                         }
                         if (checkEndsInArray(ext, new String[]{"mp4","3gp","mpeg","mov","flv"})) {
                             // video
-                            item.type = ShowResults.T_VIDEO;
+                            item.type = ShowResults_Sensor.T_VIDEO;
                         }
                         item.name = file.getName();// 名称
 

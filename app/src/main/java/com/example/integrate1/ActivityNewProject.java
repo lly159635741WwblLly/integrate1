@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +25,7 @@ public class ActivityNewProject extends AppCompatActivity implements View.OnClic
     //建立一个string用来存放输入的项目名，当成项目文件夹的名字
     private String pro_folder_name;
     //每个项目文件夹下加一个txt记录项目页面输入的信息
-    private final String mFilename = "pro_information.txt";
+    private final String mFilename = "pro_info.txt";
     private String[] project_information;
     private SharedPreferences.Editor editor;
     private SharedPreferences sharedPreferences;
@@ -72,7 +74,12 @@ public class ActivityNewProject extends AppCompatActivity implements View.OnClic
         //添加数据，用intent将输入的项目名传到下一个界面
         intent.putExtra("name",pro_folder_name);
         intent.setClass(getApplicationContext(), ActivityProjectInterface.class);
-        startActivity(intent);
+
+        if(!TextUtils.isEmpty(project_information[0])){
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "请输入项目名称", Toast.LENGTH_SHORT).show();}
 
 
     }

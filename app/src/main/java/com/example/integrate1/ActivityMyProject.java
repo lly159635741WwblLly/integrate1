@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ActivityMyProject extends AppCompatActivity implements View.OnClickListener {
 
-    private ListView list_view_project;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +20,23 @@ public class ActivityMyProject extends AppCompatActivity implements View.OnClick
 
     private void initUI() {
         findViewById(R.id.button_new_pro).setOnClickListener(this);
-        list_view_project = findViewById(R.id.lv_pro);
+        findViewById(R.id.button_data_file_list).setOnClickListener(this);
 
     }
 
     @Override
-    public void onClick(View view) {
-        Intent intent = new Intent();
-        intent.setClass(getApplicationContext(),ActivityNewProject.class);
-        startActivity(intent);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_new_pro:
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), ActivityNewProject.class);
+                startActivity(intent);
+                break;
+            case R.id.button_data_file_list:
+                Intent intent2 = new Intent();
+                intent2.setClass(getApplicationContext(), ShowResults_Global.class);
+                startActivity(intent2);
+                break;
+        }
     }
 }

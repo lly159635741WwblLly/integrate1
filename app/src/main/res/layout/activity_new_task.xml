@@ -10,6 +10,8 @@
     <TextView
         android:text="新建测量任务"
         android:textSize="25dp"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

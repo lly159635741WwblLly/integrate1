@@ -94,7 +94,7 @@ public class MyAdapter extends BaseAdapter {
         FileInfo_Results item = list.get(position);
         holder.play.setVisibility(View.GONE);// 不可见
         // 显示图标
-        if(item.type == ShowResults.T_PIC){// 文件类型--- 图片:缩略图
+        if(item.type == ShowResults_Sensor.T_PIC){// 文件类型--- 图片:缩略图
 
             String path = item.path;
 //            BitmapFactory.Options opt = new BitmapFactory.Options();
@@ -126,7 +126,7 @@ public class MyAdapter extends BaseAdapter {
                         }
                     });
 
-        }else if(item.type == ShowResults.T_VIDEO) {// 视频
+        }else if(item.type == ShowResults_Sensor.T_VIDEO) {// 视频
             // 生成缩略图 Thumbnails.MICRO_KIND(最小的缩略图)
             Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(item.path,
                     MediaStore.Video.Thumbnails.MICRO_KIND);
@@ -140,7 +140,7 @@ public class MyAdapter extends BaseAdapter {
 
 
         // 高亮关键字
-        String key = ShowResults.KEYWORD;
+        String key = ShowResults_Sensor.KEYWORD;
         if (key != null && !key.equals("") ) {
             int start = item.name.toLowerCase().indexOf(key.toLowerCase());//
             int end = start + key.length();
