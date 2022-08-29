@@ -329,6 +329,7 @@ public class Utils_Results {
             if (checkEndsInArray(end, new String[]{"png","gif","jpg","bmp"})) {
                 // 图片
                 intent.setDataAndType(Uri.fromFile(aFile), "image/*");//MIME TYPE
+
             } else if (checkEndsInArray(end, new String[]{"apk"})) {
                 // apk
                 intent.setDataAndType(Uri.fromFile(aFile), "application/vnd.android.package-archive");
@@ -340,7 +341,7 @@ public class Utils_Results {
                 intent.setDataAndType(Uri.fromFile(aFile), "video/*");
             } else if (checkEndsInArray(end, new String[]{"txt","ini","log","java","xml","html"})) {
                 // text
-                intent.setDataAndType(Uri.fromFile(aFile), "text/plain");
+                intent.setDataAndType(Uri.fromFile(aFile), "text/html");
             } else if (checkEndsInArray(end, new String[]{"doc","docx"})) {
                 // word
                 intent.setDataAndType(Uri.fromFile(aFile), "application/msword");

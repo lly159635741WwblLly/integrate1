@@ -188,7 +188,7 @@ public class ShowResults_Sensor extends AppCompatActivity implements AdapterView
     private void getExit() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.stat_sys_warning)
-                .setMessage("确定停止查看项目文件吗?")
+                .setMessage("确定停止查看本次测量结果吗?")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

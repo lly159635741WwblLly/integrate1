@@ -80,8 +80,8 @@
             android:name=".ActivityAccAndTiltMonitor"
             android:exported="false"
             android:parentActivityName=".ActivityNewTask" />
-        <activity android:name=".MainActivity1" />
-        <activity android:name=".CameraActivity4" />
+        <activity android:name=".MainActivity_Camera" />
+        <activity android:name=".CameraActivity" />
         <activity
             android:name=".ActivityEditPicture"
             android:exported="false" />

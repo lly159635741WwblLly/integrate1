@@ -3,15 +3,13 @@ package com.example.integrate1
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import com.example.integrate1.databinding.ActivityListBinding
 
 
-class MainActivity1 : AppCompatActivity() {
+class MainActivity_Camera : AppCompatActivity() {
     private lateinit var binding: ActivityListBinding
 
 
@@ -39,7 +37,7 @@ class MainActivity1 : AppCompatActivity() {
             ), 1
         )
         binding.btnTakePicture.setOnClickListener {
-            startActivity(CameraActivity4::class.java)
+            startActivity(CameraActivity::class.java)
 
         }
     }

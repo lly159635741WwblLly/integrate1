@@ -31,7 +31,7 @@ import java.util.*
 
 
 
-class CameraActivity4 : AppCompatActivity() {
+class CameraActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var cameraProvider: ProcessCameraProvider
@@ -54,7 +54,6 @@ class CameraActivity4 : AppCompatActivity() {
             ), 1
         )
         //权限申请
-
         binding.btnSwitchCamera.visibility = View.VISIBLE
         binding.btnCameraCapture.visibility = View.VISIBLE
 

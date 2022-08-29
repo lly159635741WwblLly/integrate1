@@ -32,7 +32,7 @@ public class ActivityNewTask extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.button_pic_task:
                 //跳转到图像采集
-                intent.setClass(getApplicationContext(),MainActivity1.class);
+                intent.setClass(getApplicationContext(), MainActivity_Camera.class);
                 break;
         }
         startActivity(intent);
