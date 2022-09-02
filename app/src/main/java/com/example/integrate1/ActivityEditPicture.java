@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -21,10 +22,14 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
 
 import me.kareluo.imaging.core.file.IMGAssetFileDecoder;
 import me.kareluo.imaging.core.file.IMGDecoder;
@@ -37,6 +42,14 @@ public class ActivityEditPicture extends AppCompatActivity {
     public static final int REQ_SELECT_PHOTO = 0xf0a;
     private Bitmap avatarBitMap = null;
     ImageView imageView;
+
+    public SharedPreferences myPreference;
+    String SD_PATH1;String SD_PATH;
+    String xie="/";
+    private static String generateFileName() {
+        return UUID.randomUUID().toString();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +65,10 @@ public class ActivityEditPicture extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             this.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+
+        myPreference=getSharedPreferences("direction",MODE_PRIVATE);
+        SD_PATH1=myPreference.getString("dir","");
+
     }
     private void seleteImg() {
         Intent intent = new Intent();
@@ -81,7 +98,7 @@ public class ActivityEditPicture extends AppCompatActivity {
                         @Override
                         public void onComplete(Bitmap bitmap) {
 
-                            CommonUtil.saveBitmap2file(bitmap, getApplicationContext());//保存编辑后的图片
+                            saveBitmap2file(bitmap, getApplicationContext());//保存编辑后的图片
 
                             imageView.setImageBitmap(bitmap);
                         }
@@ -282,6 +299,46 @@ public class ActivityEditPicture extends AppCompatActivity {
      */
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+    public  void saveBitmap2file(Bitmap bmp, Context context) {
+
+        SD_PATH=SD_PATH1.concat(xie);
+
+        String savePath;
+        String fileName = generateFileName() + ".JPEG";
+        if (Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED)) {
+            savePath = SD_PATH;
+        } else {
+            Toast.makeText(context, "保存失败！", Toast.LENGTH_SHORT).show();
+            return ;
+        }
+        File filePic = new File(savePath + fileName);
+        try {
+            if (!filePic.exists()) {
+                filePic.getParentFile().mkdirs();
+                filePic.createNewFile();
+            }
+            FileOutputStream fos = new FileOutputStream(filePic);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            //Toast.makeText(context, "保存成功,位置:" + filePic.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // 其次把文件插入到系统图库
+//        try {
+//            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+//                    filePic.getAbsolutePath(), fileName, null);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        // 最后通知图库更新
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + savePath+fileName)));
+
     }
 
 
