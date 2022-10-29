@@ -33,6 +33,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class ShowResults_Global extends AppCompatActivity implements AdapterView.OnItemClickListener, SearchView.OnQueryTextListener{
 
     ListView listView;
@@ -46,7 +47,7 @@ public class ShowResults_Global extends AppCompatActivity implements AdapterView
 
     //确定文件目录
 
-    String PATH = "/storage/emulated/0/Orion_cc";
+    String PATH = "/storage/emulated/0/";
 
     public static final int T_DIR = 0;// 文件夹
     public static final int T_FILE = 1;// 文件
@@ -54,12 +55,7 @@ public class ShowResults_Global extends AppCompatActivity implements AdapterView
     public static final int T_VIDEO = 3;// 文件:视频
 
     // 文件名的比较器
-    Comparator<FileInfo_Results> nameComparator = new Comparator<FileInfo_Results>() {
-        @Override
-        public int compare(FileInfo_Results lhs, FileInfo_Results rhs) {
-            return lhs.name.toLowerCase().compareTo(rhs.name.toLowerCase());
-        }
-    };
+    Comparator<FileInfo_Results> nameComparator = Comparator.comparing(lhs -> lhs.name.toLowerCase());
 
 
 
@@ -89,9 +85,9 @@ public class ShowResults_Global extends AppCompatActivity implements AdapterView
 
     }
     private void initView(){
-        tv_path = (TextView) findViewById(R.id.path);
-        tv_info = (TextView) findViewById(R.id.tv_info);
-        listView = (ListView) findViewById(R.id.list);
+        tv_path = findViewById(R.id.path);
+        tv_info = findViewById(R.id.tv_info);
+        listView = findViewById(R.id.list);
         adapter = new MyAdapter(this);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
@@ -117,8 +113,8 @@ public class ShowResults_Global extends AppCompatActivity implements AdapterView
     }
     public List<FileInfo_Results> getGroupList(List<FileInfo_Results> list){
         //1. 文件和文件夹分为两个集合
-        List<FileInfo_Results> dirs = new ArrayList<FileInfo_Results>();// 文件夹
-        List<FileInfo_Results> files = new ArrayList<FileInfo_Results>();// 文件
+        List<FileInfo_Results> dirs = new ArrayList<>();// 文件夹
+        List<FileInfo_Results> files = new ArrayList<>();// 文件
         for (FileInfo_Results item:list){
             if (item.type == T_DIR){
                 dirs.add(item);
@@ -182,12 +178,7 @@ public class ShowResults_Global extends AppCompatActivity implements AdapterView
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.stat_sys_warning)
                 .setMessage("确定停止查看项目文件吗?")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
+                .setPositiveButton("确定", (dialog, which) -> finish())
                 .setNegativeButton("取消",null)
                 .show();
     }
@@ -238,7 +229,7 @@ public class ShowResults_Global extends AppCompatActivity implements AdapterView
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        list = new ArrayList<FileInfo_Results>();
+        list = new ArrayList<>();
 
         KEYWORD = query;
         updateData();// 搜索
