@@ -47,6 +47,7 @@ public class ActivityEditPicture extends AppCompatActivity {
     String SD_PATH1;String SD_PATH;
     String xie="/";
     private static String generateFileName() {
+        //这里能不能改成生成指定格式的文件名？或者把梓煜那边生成的特定格式文件名传过来
         return UUID.randomUUID().toString();
     }
 

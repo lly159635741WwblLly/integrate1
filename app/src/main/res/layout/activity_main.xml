@@ -25,22 +25,49 @@
         android:text="切换摄像头"
         android:textSize="20dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_camera_capture_instrument"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btn_camera_capture" />
+        app:layout_constraintRight_toLeftOf="@id/btn_camera_capture_displacement" />
 
     <Button
-        android:id="@+id/btn_camera_capture"
+        android:id="@+id/btn_camera_capture_displacement"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="10dp"
         android:scaleType="fitCenter"
-        android:text="拍照"
+        android:text="位移拍照"
+        android:textSize="20dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/btn_camera_capture_defect"
+        app:layout_constraintLeft_toRightOf="@id/btn_switch_camera"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/btn_camera_capture_instrument"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:text="仪表拍照"
         android:textSize="20dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/btn_switch_camera"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_camera_capture_defect" />
+    <Button
+        android:id="@+id/btn_camera_capture_defect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:text="缺陷拍照"
+        android:textSize="20dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_camera_capture_instrument"
         app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

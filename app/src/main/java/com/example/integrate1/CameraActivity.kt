@@ -38,6 +38,8 @@ class CameraActivity : AppCompatActivity() {
     private var preview: Preview? = null
     private var camera: Camera? = null
     private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
+    //private var folder: File? = getExternalFilesDir()
+
     //变量定义
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +57,9 @@ class CameraActivity : AppCompatActivity() {
         )
         //权限申请
         binding.btnSwitchCamera.visibility = View.VISIBLE
-        binding.btnCameraCapture.visibility = View.VISIBLE
+        binding.btnCameraCaptureDisplacement.visibility = View.VISIBLE
+        binding.btnCameraCaptureInstrument.visibility = View.VISIBLE
+        binding.btnCameraCaptureDefect.visibility = View.VISIBLE
 
         setUpCamera(binding.previewView)
 
@@ -82,19 +86,29 @@ class CameraActivity : AppCompatActivity() {
             true
         }
 
-        binding.btnCameraCapture.setOnClickListener {
+        binding.btnCameraCaptureDisplacement.setOnClickListener {
             //拍照设置
-            takePictureSaveToDisk()
+            takePictureSaveToDisk_displacement()
         }
+        binding.btnCameraCaptureInstrument.setOnClickListener {
+            //拍照设置
+            takePictureSaveToDisk_instrument()
+       }
+        binding.btnCameraCaptureDefect.setOnClickListener {
+            //拍照设置
+            takePictureSaveToDisk_defect()
+        }
+
     }
 
     //进行拍照并保存到本地
-    private fun takePictureSaveToDisk() {
+    private fun takePictureSaveToDisk_displacement() {
         imageCapture?.let { imageCapture ->
 
 
             //创建存储文件夹存放照片
-            val photoFile = createFile(getOutputDirectory(this), FILENAME, PHOTO_EXTENSION)
+            // val photoFile = createFile(getOutputDirectory(this), FILENAME, PHOTO_EXTENSION)
+            val photoFile = createFile(getOutputDirectory(this), "admin-","weiyi-",FILENAME, PHOTO_EXTENSION)
             Log.i(TAG, "photoFile:$photoFile")
 
 
@@ -164,6 +178,163 @@ class CameraActivity : AppCompatActivity() {
             }
         }
     }
+
+    //进行拍照并保存到本地
+    private fun takePictureSaveToDisk_instrument() {
+        imageCapture?.let { imageCapture ->
+
+
+            //创建存储文件夹存放照片
+            // val photoFile = createFile(getOutputDirectory(this), FILENAME, PHOTO_EXTENSION)
+            val photoFile = createFile(getOutputDirectory(this), "admin-","yibiao-",FILENAME, PHOTO_EXTENSION)
+            Log.i(TAG, "photoFile:$photoFile")
+
+
+            //设置图像捕获元数据
+            val metadata = ImageCapture.Metadata().apply {
+                // Mirror image when using the front camera
+                isReversedHorizontal = lensFacing == CameraSelector.LENS_FACING_FRONT
+            }
+
+            // 创建包含文件+元数据的输出选项对象
+            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile)
+                .setMetadata(metadata)
+                .build()
+
+            // 设置拍照后触发的图像捕获侦听器
+            imageCapture.takePicture(
+                outputOptions,
+                ContextCompat.getMainExecutor(this),
+                object : ImageCapture.OnImageSavedCallback {
+                    override fun onError(exc: ImageCaptureException) {
+                        Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    }
+
+                    override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                        val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
+                        Log.d(TAG, "Photo capture succeeded: $savedUri")
+
+                        /*
+                        // We can only change the foreground Drawable using API level 23+ API
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            // Update the gallery thumbnail with latest picture taken
+                            setGalleryThumbnail(savedUri)
+                        }*/
+
+                        // Implicit broadcasts will be ignored for devices running API level >= 24
+                        // so if you only target API level 24+ you can remove this statement
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                            application.sendBroadcast(
+                                Intent(android.hardware.Camera.ACTION_NEW_PICTURE, savedUri)
+                            )
+                        }
+
+                        // If the folder selected is an external media directory, this is
+                        // unnecessary but otherwise other apps will not be able to access our
+                        // images unless we scan them using [MediaScannerConnection]
+                        val mimeType = MimeTypeMap.getSingleton()
+                            .getMimeTypeFromExtension(savedUri.toFile().extension)
+                        MediaScannerConnection.scanFile(
+                            application,
+                            arrayOf(savedUri.toFile().absolutePath),
+                            arrayOf(mimeType)
+                        ) { _, uri ->
+                            Log.d(TAG, "Image capture scanned into media store: $uri")
+                        }
+                    }
+                })
+
+            // We can only change the foreground Drawable using API level 23+ API
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Display flash animation to indicate that photo was captured
+                binding.root.postDelayed({
+                    binding.root.foreground = ColorDrawable(Color.WHITE)
+                    binding.root.postDelayed(
+                        { binding.root.foreground = null }, 50L
+                    )
+                }, 100L)
+            }
+        }
+    }
+
+    //进行拍照并保存到本地
+    private fun takePictureSaveToDisk_defect() {
+        imageCapture?.let { imageCapture ->
+
+
+            //创建存储文件夹存放照片
+            // val photoFile = createFile(getOutputDirectory(this), FILENAME, PHOTO_EXTENSION)
+            val photoFile = createFile(getOutputDirectory(this), "admin-","quexian-",FILENAME, PHOTO_EXTENSION)
+            Log.i(TAG, "photoFile:$photoFile")
+
+
+            //设置图像捕获元数据
+            val metadata = ImageCapture.Metadata().apply {
+                // Mirror image when using the front camera
+                isReversedHorizontal = lensFacing == CameraSelector.LENS_FACING_FRONT
+            }
+
+            // 创建包含文件+元数据的输出选项对象
+            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile)
+                .setMetadata(metadata)
+                .build()
+
+            // 设置拍照后触发的图像捕获侦听器
+            imageCapture.takePicture(
+                outputOptions,
+                ContextCompat.getMainExecutor(this),
+                object : ImageCapture.OnImageSavedCallback {
+                    override fun onError(exc: ImageCaptureException) {
+                        Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    }
+
+                    override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                        val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
+                        Log.d(TAG, "Photo capture succeeded: $savedUri")
+
+                        /*
+                        // We can only change the foreground Drawable using API level 23+ API
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            // Update the gallery thumbnail with latest picture taken
+                            setGalleryThumbnail(savedUri)
+                        }*/
+
+                        // Implicit broadcasts will be ignored for devices running API level >= 24
+                        // so if you only target API level 24+ you can remove this statement
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                            application.sendBroadcast(
+                                Intent(android.hardware.Camera.ACTION_NEW_PICTURE, savedUri)
+                            )
+                        }
+
+                        // If the folder selected is an external media directory, this is
+                        // unnecessary but otherwise other apps will not be able to access our
+                        // images unless we scan them using [MediaScannerConnection]
+                        val mimeType = MimeTypeMap.getSingleton()
+                            .getMimeTypeFromExtension(savedUri.toFile().extension)
+                        MediaScannerConnection.scanFile(
+                            application,
+                            arrayOf(savedUri.toFile().absolutePath),
+                            arrayOf(mimeType)
+                        ) { _, uri ->
+                            Log.d(TAG, "Image capture scanned into media store: $uri")
+                        }
+                    }
+                })
+
+            // We can only change the foreground Drawable using API level 23+ API
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Display flash animation to indicate that photo was captured
+                binding.root.postDelayed({
+                    binding.root.foreground = ColorDrawable(Color.WHITE)
+                    binding.root.postDelayed(
+                        { binding.root.foreground = null }, 50L
+                    )
+                }, 100L)
+            }
+        }
+    }
+
 
     //进行拍照
     private fun takePicture() {
@@ -242,11 +413,17 @@ class CameraActivity : AppCompatActivity() {
     }
 
     /** Helper function used to create a timestamped file */
-    private fun createFile(baseFolder: File, format: String, extension: String) =
+    private fun createFile(baseFolder: File, user:String, content: String, format: String, extension: String) =
         File(
-            baseFolder, SimpleDateFormat(format, Locale.US)
+            baseFolder, user + content + SimpleDateFormat(format, Locale.US)
                 .format(System.currentTimeMillis()) + extension
         )
+    /** Helper function used to create a timestamped file */
+    //private fun createFile(baseFolder: File, format: String, extension: String) =
+        //File(
+            //baseFolder, SimpleDateFormat(format, Locale.US)
+                //.format(System.currentTimeMillis()) + extension
+        //)
 
     /** Use external media if it is available, our app's file directory otherwise */
     fun getOutputDirectory(context: Context): File {
@@ -254,12 +431,15 @@ class CameraActivity : AppCompatActivity() {
         val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
             File(it, appContext.resources.getString(R.string.app_name)).apply { mkdirs() }
         }
+        //return if (mediaDir != null && mediaDir.exists())
+            //mediaDir else appContext.filesDir
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else appContext.filesDir
     }
 
     companion object {
-        private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
+        //private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val FILENAME = "yyyyMMddHHmmss"
         private const val PHOTO_EXTENSION = ".jpg"
         private const val TAG = "Z-Main"
     }

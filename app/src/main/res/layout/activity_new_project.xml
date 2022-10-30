@@ -74,7 +74,7 @@
         />
 
     <EditText
-        android:id="@+id/pro_location"
+        android:id="@+id/pro_user"
         android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
